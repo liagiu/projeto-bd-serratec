@@ -1,13 +1,12 @@
 create table categoria (
 	id serial primary key not null,
-	nome text,
-	descricao text
+	nome text not null unique
 );
 
 create table funcionarios (
 	id serial primary key not null,
 	nome text,
-	cpf numeric
+	cpf numeric unique
 );
 
 create table produtos (
@@ -15,10 +14,10 @@ create table produtos (
 	nome text,
 	descricao text,
 	valor_unit money,
+	id_funcionarios integer,
 	id_categoria integer,
 	foreign key (id_categoria) references categoria(id) on delete cascade on update cascade,
-	id_funcionario integer,
-	foreign key (id_funcionario) references funcionarios(id) on delete cascade on update cascade
+	foreign key (id_funcionarios) references funcionarios(id) on delete cascade on update cascade	
 );
 
 create table dt_fabric(
@@ -52,8 +51,8 @@ create table clientes (
     nome text,
     sobrenome text,
     idusuario integer,
-    email integer,
-    cpf numeric,
+    email text,
+    cpf numeric unique,
     data_nascimento date,
     id_enderecos integer,
     foreign key (id_enderecos) references endereco (id) on delete cascade on update cascade
