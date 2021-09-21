@@ -24,11 +24,13 @@ order by e.estado;
 
 -- SQL para construção de nota fiscal
 
+create view nota_fiscal as
 select pd.id as id_pedido, 
 pd.data_pedido,
-concat(c.nome, ' ', c.sobrenome) as cliente, 
-c.id as id_cliente, 
-concat(e.rua, ' ', e.numero, ' ', e.complemento, ' ', e.bairro, ' ', e.cidade, '-', e.estado, ', ', e.pais) as endereco, 
+c.id as id_cliente,
+c.nome || ' ' || c.sobrenome as cliente,
+c.cpf,
+e.rua || ' ' || e.numero || ' ' || e.complemento || ' ' || e.bairro || ' ' || e.cidade || '-' || e.estado || ', ' || e.pais as endereco, 
 sum (pp.quantidade) as qtd_itens,
 array_agg('(' || pp.quantidade || ') ' || p.nome || ' ' || p.valor_unit || ' = ' || p.valor_unit * pp.quantidade) as produtos,
 sum(p.valor_unit * pp.quantidade) as total
