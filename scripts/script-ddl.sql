@@ -6,7 +6,7 @@ create table categoria (
 create table funcionarios (
 	id serial primary key not null,
 	nome text,
-	cpf numeric unique
+	cpf varchar(11) unique
 );
 
 create table produtos (
@@ -52,7 +52,7 @@ create table clientes (
     sobrenome text,
     idusuario integer,
     email text,
-    cpf numeric unique,
+    cpf varchar(11) unique,
     data_nascimento date,
     id_enderecos integer,
     foreign key (id_enderecos) references endereco (id) on delete cascade on update cascade
@@ -62,7 +62,7 @@ create table pedidos (
     id serial primary key not null,
     data_pedido date,
     id_pedidos integer,
-    foreign key (id_pedidos) references clientes (id)  on delete cascade on update cascade
+    foreign key (id_pedidos) references produtos (id)  on delete cascade on update cascade
 );
 
 create table produtos_pedidos( 
